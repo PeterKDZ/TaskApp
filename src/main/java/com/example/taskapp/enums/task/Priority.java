@@ -1,4 +1,4 @@
-package com.example.taskapp.tasks;
+package com.example.taskapp.enums.task;
 
 public enum Priority {
 

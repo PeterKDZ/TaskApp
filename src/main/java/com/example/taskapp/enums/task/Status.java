@@ -1,4 +1,4 @@
-package com.example.taskapp.tasks;
+package com.example.taskapp.enums.task;
 
 public enum Status {
     TO_DO("Task to do, not started yet"),

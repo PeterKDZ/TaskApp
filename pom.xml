@@ -35,12 +35,11 @@
             <artifactId>liquibase-core</artifactId>
             <version>4.11.0</version>
         </dependency>
-
-
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <scope>import</scope>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.2.Final</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
