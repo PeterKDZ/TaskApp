@@ -1,7 +1,6 @@
-package com.example.taskapp.entities.task;
+package com.example.taskapp.entity.task;
 
 
-import com.example.taskapp.dtos.task.TaskDto;
 import com.example.taskapp.enums.task.Priority;
 import com.example.taskapp.enums.task.Status;
 import lombok.*;
@@ -14,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tasks", schema = "")
+@Table(name = "tasks", schema = "task_schema")
 public class Task {
 
     @Id
