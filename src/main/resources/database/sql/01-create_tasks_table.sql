@@ -1,5 +1,6 @@
 -- liquibase formatted sql
 -- changeset pkedzierski:1
+-- create first task table
 
 CREATE SEQUENCE task_schema.tasks_sequence;
 CREATE TABLE task_schema.tasks
@@ -12,5 +13,3 @@ CREATE TABLE task_schema.tasks
 
     CONSTRAINT tasks_pkey PRIMARY KEY (id)
 );
-
--- rollback drop table tasks;

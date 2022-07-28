@@ -6,7 +6,10 @@ import com.example.taskapp.enums.task.Status;
 import lombok.*;
 
 import javax.persistence.*;
-
+/**
+ * The class represents entity.
+ *
+ */
 @Entity
 @Builder
 @Getter

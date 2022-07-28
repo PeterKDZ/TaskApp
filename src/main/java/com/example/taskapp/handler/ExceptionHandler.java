@@ -1,5 +1,6 @@
 package com.example.taskapp.handler;
 
+import com.example.taskapp.dto.error.ErrorResponse;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,8 @@ import java.util.Date;
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private ErrorResponse errorResponse;
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status,
@@ -29,15 +32,5 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @Data
-    @Builder
-    private static class ErrorResponse {
-        private Date timestamp;
-        private String status;
-        private String message;
-        private String type;
-
     }
 }
