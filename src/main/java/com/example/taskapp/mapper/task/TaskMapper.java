@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
  * The class converts a date transfer object to an entity object and an entity object to a date transfer object.
  *
  */
-
 @Component
 public class TaskMapper {
 
