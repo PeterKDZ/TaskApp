@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * The class represents a task date transfer object.
@@ -21,6 +22,7 @@ public class TaskDto {
     private Long id;
     @NotBlank(message = "Name is mandatory")
     private String name;
+    //@NotNull(message = "Status is mandatory")
     private Status status;
     private Priority priority;
     private String description;
