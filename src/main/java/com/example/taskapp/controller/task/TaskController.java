@@ -1,12 +1,11 @@
 package com.example.taskapp.controller.task;
 
 import com.example.taskapp.dto.task.TaskDto;
-import com.example.taskapp.exception.TaskAlreadyExistsException;
+import com.example.taskapp.exception.TaskException;
 import com.example.taskapp.service.task.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,12 +37,12 @@ public class TaskController {
      * @return the newly created object taskDto
      */
     @PostMapping(value = "/api/tasks")
-    public ResponseEntity createTask(@RequestBody @Valid TaskDto taskDto) {
+    public ResponseEntity<Object> createTask(@RequestBody @Valid TaskDto taskDto) {
         try {
             TaskDto taskSaved = taskService.createTask(taskDto);
             return ResponseEntity.ok(taskSaved);
-        } catch (TaskAlreadyExistsException taskException ) {
-            return new ResponseEntity(taskException.getMessage(), HttpStatus.CONFLICT);
+        } catch (TaskException taskException) {
+            return new ResponseEntity<>(taskException.getMessage(), HttpStatus.CONFLICT);
         }
     }
 
