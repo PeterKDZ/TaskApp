@@ -15,6 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -56,7 +59,7 @@ class TaskServiceTests {
         assertEquals(taskDto, result);
     }
 
-    @Test
+    @Test()
     @DisplayName("Testing creation new TaskEntity like existing in DB - Exception")
     void createTask_shouldThrowNewTaskException() {
         //given
@@ -65,19 +68,44 @@ class TaskServiceTests {
                 status(Status.DONE).
                 build();
         Task task = Task.builder().build();
-        String expectedMessage = "Task with name " + input.getName() +
-                " and status " + input.getStatus() + " is already exist";
+
+        String expectedMessage = String.format("Task with name %s and status %s is already exist", input.getName(), input.getStatus());
 
         when(taskMapper.convertDtoToTask(any(TaskDto.class))).thenReturn(task);
         when(taskRepository.existsTaskByNameAndStatus(anyString(), any(Status.class))).thenReturn(true);
 
         //when
-        TaskException taskException = assertThrows(TaskException.class, () -> taskService.createTask(input), expectedMessage);
-        String actualMessage = taskException.getMessage();
+        TaskException taskException = assertThrows(TaskException.class, () -> taskService.createTask(input));
 
         //then
         verify(taskRepository, times(1)).existsTaskByNameAndStatus(input.getName(), input.getStatus());
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertThat(taskException.getMessage()).isEqualTo("Task with name test and status DONE is already exist");
+        assertEquals(expectedMessage, taskException.getMessage());
+    }
+    @Test
+    @DisplayName("Testing updating TaskEntity existing in DB - Positive")
+    void updateTask_shouldUpdateTaskInDB() {
+        //given
+        TaskDto input = TaskDto.builder().
+                id(3L).
+                name("update test").
+                status(Status.DONE).
+                priority(Priority.NORMAL).
+                description("New updating test task").
+                build();
+
+        Task task = Task.builder().build();
+        TaskDto taskDto = TaskDto.builder().build();
+
+        when(taskRepository.findById(anyLong())).thenReturn(Optional.of(task));
+        when(taskRepository.save(any(Task.class))).thenReturn(task);
+
+        //when
+        TaskDto result = taskService.updateTask(3L, input);
+
+        //then
+        //verify(taskRepository, times(1)).save(task);
+        //assertEquals(taskDto, result);
     }
 
 }
