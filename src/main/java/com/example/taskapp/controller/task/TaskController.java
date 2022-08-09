@@ -36,22 +36,19 @@ public class TaskController {
      * @return the newly created object taskDto
      */
     @PostMapping(value = "/api/tasks")
-    public ResponseEntity<Object> createTask(@RequestBody @Valid TaskDto taskDto) {
-        try {
-            TaskDto taskSaved = taskService.createTask(taskDto);
-            return ResponseEntity.ok(taskSaved);
-        } catch (TaskException taskException) {
-            return new ResponseEntity<>(taskException.getMessage(), HttpStatus.CONFLICT);
-        }
+    public TaskDto createTask(@RequestBody @Valid TaskDto taskDto) {
+        //try {
+        //    TaskDto taskSaved = taskService.createTask(taskDto);
+        //    return ResponseEntity.ok(taskSaved);
+        //} catch (TaskException taskException) {
+        //    return new ResponseEntity<>(taskException.getMessage(), HttpStatus.CONFLICT);
+        //}
+        return taskService.createTask(taskDto);
+
     }
     @PutMapping(value = "/api/tasks/{id}")
-    public ResponseEntity<Object> updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
-        try {
-            TaskDto updated = taskService.updateTask(id, taskDto);
-            return ResponseEntity.ok(updated);
-        } catch (EntityNotFoundException entityNotFoundException) {
-            return new ResponseEntity<>(entityNotFoundException.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public TaskDto updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
+        return taskService.updateTask(id, taskDto);
     }
 
 }

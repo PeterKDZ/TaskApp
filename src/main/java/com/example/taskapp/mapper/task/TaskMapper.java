@@ -47,4 +47,12 @@ public class TaskMapper {
                 .description(taskDto.getDescription())
                 .build();
     }
+
+    public Task updateTaskFromDto(Task task, TaskDto taskDto) {
+        task.setId(taskDto.getId());
+        task.setStatus(taskDto.getStatus());
+        task.setPriority(taskDto.getPriority());
+        task.setDescription(taskDto.getDescription());
+        return task;
+    }
 }
