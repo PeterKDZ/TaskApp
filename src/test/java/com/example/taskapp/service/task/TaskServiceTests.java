@@ -108,6 +108,7 @@ class TaskServiceTests {
         //then
         verify(taskRepository, times(1)).save(task);
         assertEquals(taskDto, result);
+
     }
 
 }
