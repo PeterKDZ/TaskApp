@@ -42,9 +42,8 @@ public class TaskService {
 
     public TaskDto updateTask(Long id, TaskDto taskDto) {
         Task taskFromDB = taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-        Task updatedTask = updateTaskFromDto(taskFromDB, taskDto);
-        Task savedTask = taskRepository.save(updatedTask);
-        return taskMapper.convertTaskToDto(savedTask);
+        Task updatedTask = taskMapper.updateTaskFromDto(taskFromDB, taskDto);
+
     }
 
     private Task updateTaskFromDto(Task task, TaskDto taskDto) {
@@ -57,4 +56,5 @@ public class TaskService {
                 .description(taskDto.getDescription())
                 .build();
     }
+
 }

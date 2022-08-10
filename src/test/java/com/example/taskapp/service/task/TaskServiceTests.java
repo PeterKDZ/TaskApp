@@ -98,14 +98,17 @@ class TaskServiceTests {
         TaskDto taskDto = TaskDto.builder().build();
 
         when(taskRepository.findById(anyLong())).thenReturn(Optional.of(task));
+        when(taskMapper.updateTaskFromDto(any(Task.class), any(TaskDto.class))).thenReturn(task);
         when(taskRepository.save(any(Task.class))).thenReturn(task);
+        when(taskMapper.convertTaskToDto(any(Task.class))).thenReturn(taskDto);
 
         //when
         TaskDto result = taskService.updateTask(3L, input);
 
         //then
-        //verify(taskRepository, times(1)).save(task);
-        //assertEquals(taskDto, result);
+        verify(taskRepository, times(1)).save(task);
+        assertEquals(taskDto, result);
+
     }
 
 }
