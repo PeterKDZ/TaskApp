@@ -46,5 +46,4 @@ public class TaskService {
         Task saved = taskRepository.save(updatedTask);
         return taskMapper.convertTaskToDto(saved);
     }
-
 }
