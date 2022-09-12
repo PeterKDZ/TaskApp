@@ -59,7 +59,6 @@ public class TaskMapper {
      * @author PK
      */
     public Task updateTaskFromDto(Task task, TaskDto taskDto) {
-        //task.setId(taskDto.getId());
         task.setName(taskDto.getName());
         task.setStatus(taskDto.getStatus());
         task.setPriority(taskDto.getPriority());

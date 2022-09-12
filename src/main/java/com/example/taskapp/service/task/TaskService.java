@@ -42,14 +42,8 @@ public class TaskService {
 
     public TaskDto updateTask(Long id, TaskDto taskDto) {
         Task taskFromDB = taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-        //boolean existTaskInDB = taskRepository.existsTaskByNameAndStatus(taskDto.getName(), taskDto.getStatus());
         Task updatedTask = taskMapper.updateTaskFromDto(taskFromDB, taskDto);
         Task saved = taskRepository.save(updatedTask);
-        //if (!existTaskInDB) {
-        //    taskRepository.save(updatedTask);
-        //} else {
-        //    throw new TaskException(String.format("Task with name %s and status %s is already exist", taskDto.getName(), taskDto.getStatus()));
-        //}
         return taskMapper.convertTaskToDto(saved);
     }
 
