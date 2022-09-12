@@ -11,5 +11,5 @@ CREATE TABLE task_schema.comments
     task_id      int,
 
     CONSTRAINT comments_pkey PRIMARY KEY (id)
-    FOREIGN KEY (task_id) REFERENCES tasks(id)
+        FOREIGN KEY (task_id) REFERENCES tasks(id)
 );
