@@ -4,6 +4,7 @@ import com.example.taskapp.dto.task.TaskDto;
 import com.example.taskapp.entity.task.Task;
 import com.example.taskapp.enums.task.Priority;
 import com.example.taskapp.enums.task.Status;
+import com.example.taskapp.exception.EntityNotFoundException;
 import com.example.taskapp.exception.TaskException;
 import com.example.taskapp.mapper.task.TaskMapper;
 import com.example.taskapp.repository.task.TaskRepository;
@@ -82,6 +83,7 @@ class TaskServiceTests {
         assertThat(taskException.getMessage()).isEqualTo("Task with name test and status DONE is already exist");
         assertEquals(expectedMessage, taskException.getMessage());
     }
+
     @Test
     @DisplayName("Testing updating TaskEntity existing in DB - Positive")
     void updateTask_shouldUpdateTaskInDB() {
@@ -108,7 +110,30 @@ class TaskServiceTests {
         //then
         verify(taskRepository, times(1)).save(task);
         assertEquals(taskDto, result);
+    }
 
+    @Test
+    @DisplayName("Testing updating TaskEntity existing in DB - Exception")
+    void updateTask_shouldThrowNewEntityNotFoundException() {
+        //given
+        TaskDto input = TaskDto.builder().
+                id(3L).
+                name("update test").
+                status(Status.DONE).
+                priority(Priority.NORMAL).
+                description("New updating test task").
+                build();
+
+        String expectedMessage = String.format("Entity with id = %s not found", input.getId());
+
+        when(taskRepository.findById(anyLong())).thenThrow(new EntityNotFoundException(input.getId()));
+
+        //when
+        EntityNotFoundException entityNotFoundException = assertThrows(EntityNotFoundException.class, () -> taskService.updateTask(3L, input));
+
+        //then
+        assertThat(entityNotFoundException.getMessage()).isEqualTo("Entity with id = 3 not found");
+        assertEquals(expectedMessage, entityNotFoundException.getMessage());
     }
 
 }

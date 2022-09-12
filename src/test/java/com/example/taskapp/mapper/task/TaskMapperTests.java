@@ -63,4 +63,42 @@ class TaskMapperTests {
         assertEquals(taskDto.getPriority(), task.getPriority());
         assertEquals(taskDto.getDescription(), task.getDescription());
     }
+
+    @Test
+    @DisplayName("Testing updating Entity from DTO using TaskMapper - Positive")
+    void updateTaskFromDtoTest_shouldUpdateTaskEntityFromTaskDto() {
+        //given
+        Task task = Task.builder().
+                id(2L).
+                status(Status.TO_DO).
+                name("DB task").
+                priority(Priority.HIGH).
+                description("Existing task  from DB").
+                build();
+        TaskDto taskDto = TaskDto.builder().
+                id(10L).
+                name("taskDto").
+                status(Status.DONE).
+                priority(Priority.LOW).
+                description("task to given date").
+                build();
+
+        //when
+        Task updatedTask = taskMapper.updateTaskFromDto(task, taskDto);
+
+        //then
+        assertNotNull(updatedTask);
+        assertEquals(taskDto.getId(), updatedTask.getId());
+        assertEquals(taskDto.getName(), updatedTask.getName());
+        assertEquals(taskDto.getStatus(), updatedTask.getStatus());
+        assertEquals(taskDto.getPriority(), updatedTask.getPriority());
+        assertEquals(taskDto.getDescription(), updatedTask.getDescription());
+
+        assertEquals(task.getId(), updatedTask.getId());
+        assertEquals(task.getName(), updatedTask.getName());
+        assertEquals(task.getStatus(), updatedTask.getStatus());
+        assertEquals(task.getPriority(), updatedTask.getPriority());
+        assertEquals(task.getDescription(), updatedTask.getDescription());
+
+    }
 }
