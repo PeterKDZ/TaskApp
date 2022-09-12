@@ -48,8 +48,18 @@ public class TaskMapper {
                 .build();
     }
 
+    /**
+     * Update an existing Task object, given the data provided.
+     *
+     * Updates given Task object from TaskDto object.
+     *
+     * @param task a task entity object
+     * @param taskDto a task date transfer object
+     * @return new updated object task
+     * @author PK
+     */
     public Task updateTaskFromDto(Task task, TaskDto taskDto) {
-        task.setId(taskDto.getId());
+        task.setName(taskDto.getName());
         task.setStatus(taskDto.getStatus());
         task.setPriority(taskDto.getPriority());
         task.setDescription(taskDto.getDescription());

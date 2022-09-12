@@ -34,18 +34,26 @@ public class TaskController {
      *
      * @param taskDto a JSON representation of taskDto object
      * @return the newly created object taskDto
+     * @author PK
      */
     @PostMapping(value = "/api/tasks")
     public TaskDto createTask(@RequestBody @Valid TaskDto taskDto) {
-        //try {
-        //    TaskDto taskSaved = taskService.createTask(taskDto);
-        //    return ResponseEntity.ok(taskSaved);
-        //} catch (TaskException taskException) {
-        //    return new ResponseEntity<>(taskException.getMessage(), HttpStatus.CONFLICT);
-        //}
         return taskService.createTask(taskDto);
-
     }
+
+    /**
+     * Handle /api/tasks/{id} endpoint
+     *
+     * Update an existing Task object, given the data provided.
+     *
+     * Returns one o the following HTTP status code:
+     * 200: successfully updated the task
+     * 400: unable to update task, because it is not exists in database
+     *
+     * @param taskDto a JSON representation of taskDto object
+     * @return the updated object taskDto
+     * @author PK
+     */
     @PutMapping(value = "/api/tasks/{id}")
     public TaskDto updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
         return taskService.updateTask(id, taskDto);
